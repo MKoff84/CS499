@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Matthew Biletnikoff | Computer Science ePortfolio</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0b1120;
+      color: #e5e7eb;
+      line-height: 1.6;
+    }
+
+    nav {
+      background: #111827;
+      border-bottom: 1px solid #263247;
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav .name {
+      font-size: 1.15rem;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    nav .course {
+      color: #94a3b8;
+      font-size: 0.95rem;
+    }
+
+    .hero {
+      min-height: 72vh;
+      display: flex;
+      align-items: center;
+      padding: 80px 10%;
+      background:
+        radial-gradient(circle at 80% 20%, #172554 0%, transparent 35%),
+        #0b1120;
+    }
+
+    .hero-content {
+      max-width: 850px;
+    }
+
+    .label {
+      color: #60a5fa;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 3.2rem;
+      line-height: 1.1;
+      color: #ffffff;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: #94a3b8;
+      font-weight: normal;
+      margin-bottom: 28px;
+    }
+
+    .intro {
+      max-width: 760px;
+      font-size: 1.08rem;
+      color: #cbd5e1;
+      margin-bottom: 32px;
+    }
+
+    .interests {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tag {
+      border: 1px solid #334155;
+      background: #111827;
+      padding: 8px 14px;
+      border-radius: 20px;
+      color: #bfdbfe;
+      font-size: 0.9rem;
+    }
+
+    .portfolio {
+      padding: 65px 10%;
+      background: #111827;
+    }
+
+    .portfolio h3 {
+      font-size: 1.7rem;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .portfolio p {
+      color: #94a3b8;
+      max-width: 750px;
+      margin-bottom: 30px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: #0f172a;
+      border: 1px solid #263247;
+      border-radius: 8px;
+      padding: 22px;
+    }
+
+    .card strong {
+      color: #e2e8f0;
+    }
+
+    .card span {
+      display: block;
+      color: #64748b;
+      margin-top: 6px;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #64748b;
+      background: #0b1120;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 700px) {
+      h1 {
+        font-size: 2.3rem;
+      }
+
+      nav {
+        padding: 15px 5%;
+      }
+
+      .hero,
+      .portfolio {
+        padding-left: 7%;
+        padding-right: 7%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="name">Matthew Biletnikoff</div>
+    <div class="course">CS 499 | Computer Science Capstone</div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+
+      <div class="label">Computer Science ePortfolio</div>
+
+      <h1>Engineering Intelligent Systems for Complex Problems</h1>
+
+      <h2>
+        Software Engineering • Artificial Intelligence • Simulation
+      </h2>
+
+      <p class="intro">
+        This ePortfolio represents the culmination of my Bachelor of Science
+        in Computer Science with a concentration in Software Engineering at
+        Southern New Hampshire University. It demonstrates my growth in
+        software design and engineering, algorithms and data structures,
+        databases, and security-minded software development.
+      </p>
+
+      <div class="interests">
+        <div class="tag">Software Engineering</div>
+        <div class="tag">Artificial Intelligence</div>
+        <div class="tag">Machine Learning</div>
+        <div class="tag">Simulation</div>
+        <div class="tag">Algorithms</div>
+        <div class="tag">Scientific Computing</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="portfolio">
+
+    <h3>CS 499 Capstone Portfolio</h3>
+
+    <p>
+      Throughout this capstone, this portfolio will document the enhancement
+      of previous computer science work and demonstrate the application of
+      software engineering, algorithmic problem solving, database design,
+      professional communication, and secure computing practices.
+    </p>
+
+    <div class="cards">
+
+      <div class="card">
+        <strong>Professional Self-Assessment</strong>
+        <span>Coming during the final capstone</span>
+      </div>
+
+      <div class="card">
+        <strong>Code Review</strong>
+        <span>Module Two</span>
+      </div>
+
+      <div class="card">
+        <strong>Software Engineering & Design</strong>
+        <span>Artifact Enhancement</span>
+      </div>
+
+      <div class="card">
+        <strong>Algorithms & Data Structures</strong>
+        <span>Artifact Enhancement</span>
+      </div>
+
+      <div class="card">
+        <strong>Databases</strong>
+        <span>Artifact Enhancement</span>
+      </div>
+
+    </div>
+
+  </section>
+
+  <footer>
+    Matthew Biletnikoff | CS 499 Computer Science Capstone
+  </footer>
+
+</body>
+</html>
