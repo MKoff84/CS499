@@ -2,252 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Matthew Biletnikoff | Computer Science ePortfolio</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Matthew Biletnikoff's computer science ePortfolio: software engineering, AI, algorithms, simulation, and database systems.">
+  <title>Matthew Biletnikoff | Research Engineering ePortfolio</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #0b1120;
-      color: #e5e7eb;
-      line-height: 1.6;
-    }
-
-    nav {
-      background: #111827;
-      border-bottom: 1px solid #263247;
-      padding: 18px 8%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    nav .name {
-      font-size: 1.15rem;
-      font-weight: bold;
-      color: #ffffff;
-    }
-
-    nav .course {
-      color: #94a3b8;
-      font-size: 0.95rem;
-    }
-
-    .hero {
-      min-height: 72vh;
-      display: flex;
-      align-items: center;
-      padding: 80px 10%;
-      background:
-        radial-gradient(circle at 80% 20%, #172554 0%, transparent 35%),
-        #0b1120;
-    }
-
-    .hero-content {
-      max-width: 850px;
-    }
-
-    .label {
-      color: #60a5fa;
-      font-weight: bold;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
-
-    h1 {
-      font-size: 3.2rem;
-      line-height: 1.1;
-      color: #ffffff;
-      margin-bottom: 15px;
-    }
-
-    h2 {
-      font-size: 1.5rem;
-      color: #94a3b8;
-      font-weight: normal;
-      margin-bottom: 28px;
-    }
-
-    .intro {
-      max-width: 760px;
-      font-size: 1.08rem;
-      color: #cbd5e1;
-      margin-bottom: 32px;
-    }
-
-    .interests {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .tag {
-      border: 1px solid #334155;
-      background: #111827;
-      padding: 8px 14px;
-      border-radius: 20px;
-      color: #bfdbfe;
-      font-size: 0.9rem;
-    }
-
-    .portfolio {
-      padding: 65px 10%;
-      background: #111827;
-    }
-
-    .portfolio h3 {
-      font-size: 1.7rem;
-      color: #ffffff;
-      margin-bottom: 12px;
-    }
-
-    .portfolio p {
-      color: #94a3b8;
-      max-width: 750px;
-      margin-bottom: 30px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 16px;
-    }
-
-    .card {
-      background: #0f172a;
-      border: 1px solid #263247;
-      border-radius: 8px;
-      padding: 22px;
-    }
-
-    .card strong {
-      color: #e2e8f0;
-    }
-
-    .card span {
-      display: block;
-      color: #64748b;
-      margin-top: 6px;
-      font-size: 0.9rem;
-    }
-
-    footer {
-      text-align: center;
-      padding: 25px;
-      color: #64748b;
-      background: #0b1120;
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 700px) {
-      h1 {
-        font-size: 2.3rem;
-      }
-
-      nav {
-        padding: 15px 5%;
-      }
-
-      .hero,
-      .portfolio {
-        padding-left: 7%;
-        padding-right: 7%;
-      }
-    }
+    :root{color-scheme:dark;--bg:#07101c;--panel:#0e1b2b;--panel2:#102238;--text:#e9f2fb;--muted:#a4b6ca;--line:#284058;--cyan:#69d9ee;--blue:#739eff;--gold:#e4bc78}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.65}a{color:inherit;text-decoration:none}a:focus-visible{outline:2px solid var(--cyan);outline-offset:4px} .wrap{width:min(1160px,88%);margin:auto}
+    .site-header{position:sticky;top:0;z-index:10;background:rgba(7,16,28,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.nav{display:flex;justify-content:space-between;align-items:center;gap:20px;min-height:76px}.brand{font-weight:750;letter-spacing:.025em}.brand small{display:block;color:var(--muted);font-weight:400;font-size:.73rem;letter-spacing:.16em;text-transform:uppercase}.links{display:flex;flex-wrap:wrap;gap:22px;font-size:.9rem;color:#c3d3e3}.links a:hover,.text-link:hover{color:var(--cyan)}
+    .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);background:radial-gradient(ellipse at 77% 37%,rgba(37,95,145,.35),transparent 42%),linear-gradient(125deg,#081321,#0a192b 70%,#0b2232)}.hero:before{content:"";position:absolute;inset:0;opacity:.14;background-image:linear-gradient(rgba(111,174,221,.28) 1px,transparent 1px),linear-gradient(90deg,rgba(111,174,221,.28) 1px,transparent 1px);background-size:54px 54px;mask-image:linear-gradient(to right,transparent 7%,black 100%)}.hero-inner{position:relative;display:grid;grid-template-columns:1.25fr .75fr;gap:50px;align-items:center;padding:110px 0 115px}.eyebrow{color:var(--cyan);font-size:.78rem;font-weight:750;letter-spacing:.22em;text-transform:uppercase;margin:0 0 22px}.hero h1{font-size:clamp(2.6rem,5vw,4.8rem);letter-spacing:-.055em;line-height:1.07;margin:0 0 22px}.hero h1 em{font-style:normal;color:var(--cyan)}.subtitle{font-size:1.17rem;color:#b9d0e3;max-width:650px;margin:0 0 30px}.actions{display:flex;flex-wrap:wrap;gap:12px}.btn{display:inline-block;border:1px solid var(--cyan);background:var(--cyan);color:#071827;padding:11px 19px;border-radius:5px;font-weight:750;font-size:.9rem}.btn.secondary{background:transparent;color:#dbeefa;border-color:#58738c}.btn:hover{filter:brightness(1.12)}
+    .orbital{width:min(100%,370px);aspect-ratio:1;margin:auto;position:relative;display:grid;place-items:center}.orbit{position:absolute;border:1px solid rgba(105,217,238,.35);border-radius:50%;inset:12%}.orbit:nth-child(2){inset:0;transform:rotateX(63deg) rotate(-28deg);border-color:rgba(115,158,255,.45)}.orbit:nth-child(3){inset:7%;transform:rotateY(63deg) rotate(28deg);border-color:rgba(115,158,255,.35)}.core{width:39%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#77ddeb,#1c6389 55%,#0a243d 85%);box-shadow:0 0 70px rgba(45,157,204,.28)}.orbit-label{position:absolute;bottom:3%;font-size:.68rem;letter-spacing:.24em;color:#8caac2;text-transform:uppercase}
+    section.content{padding:80px 0}.section-head{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:30px}.kicker{font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);font-weight:750}.section-head h2{font-size:clamp(1.7rem,3vw,2.35rem);margin:8px 0 0;line-height:1.2}.section-head p{color:var(--muted);max-width:500px;margin:0}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.project{background:linear-gradient(145deg,var(--panel),#0a1726);border:1px solid var(--line);border-radius:10px;padding:28px;min-height:285px;display:flex;flex-direction:column;transition:transform .2s,border-color .2s}.project:hover{transform:translateY(-3px);border-color:#4c829d}.project .num{color:var(--cyan);font-size:.75rem;letter-spacing:.15em;font-weight:750}.project h3{font-size:1.32rem;margin:18px 0 10px;line-height:1.3}.project p{color:var(--muted);font-size:.94rem;margin:0 0 20px}.project .foot{margin-top:auto;padding-top:16px;border-top:1px solid var(--line);font-size:.85rem;color:#c8e3f2}.status{color:var(--gold);font-size:.77rem;letter-spacing:.04em}.wide{grid-column:span 2}.info{border-top:1px solid var(--line);background:#0b1827}.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px}.info p{color:var(--muted)}.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}.chip{padding:7px 11px;border:1px solid #34516a;border-radius:4px;color:#c4dbeb;font-size:.8rem}footer{border-top:1px solid var(--line);padding:30px 0;color:#8fa8bc;font-size:.85rem}.footer-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    @media(max-width:900px){.hero-inner{grid-template-columns:1fr;padding:80px 0}.orbital{display:none}.grid{grid-template-columns:repeat(2,1fr)}.info-grid{gap:25px}}@media(max-width:650px){.nav{align-items:flex-start;flex-direction:column;padding:17px 0}.links{gap:12px}.hero-inner{padding:65px 0}.grid,.info-grid{grid-template-columns:1fr}.wide{grid-column:auto}.section-head{display:block}.section-head p{margin-top:15px}section.content{padding:55px 0}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.project{transition:none}}
   </style>
 </head>
-
 <body>
-
-  <nav>
-    <div class="name">Matthew Biletnikoff</div>
-    <div class="course">CS 499 | Computer Science Capstone</div>
-  </nav>
-
-  <section class="hero">
-    <div class="hero-content">
-
-      <div class="label">Computer Science ePortfolio</div>
-
-      <h1>Engineering Intelligent Systems for Complex Problems</h1>
-
-      <h2>
-        Software Engineering • Artificial Intelligence • Simulation
-      </h2>
-
-      <p class="intro">
-        This ePortfolio represents the culmination of my Bachelor of Science
-        in Computer Science with a concentration in Software Engineering at
-        Southern New Hampshire University. It demonstrates my growth in
-        software design and engineering, algorithms and data structures,
-        databases, and security-minded software development.
-      </p>
-
-      <div class="interests">
-        <div class="tag">Software Engineering</div>
-        <div class="tag">Artificial Intelligence</div>
-        <div class="tag">Machine Learning</div>
-        <div class="tag">Simulation</div>
-        <div class="tag">Algorithms</div>
-        <div class="tag">Scientific Computing</div>
-      </div>
-
-    </div>
-  </section>
-
-  <section class="portfolio">
-
-    <h3>CS 499 Capstone Portfolio</h3>
-
-    <p>
-      Throughout this capstone, this portfolio will document the enhancement
-      of previous computer science work and demonstrate the application of
-      software engineering, algorithmic problem solving, database design,
-      professional communication, and secure computing practices.
-    </p>
-
-    <div class="cards">
-
-      <div class="card">
-        <strong>Professional Self-Assessment</strong>
-        <span>Coming during the final capstone</span>
-      </div>
-
-      <div class="card">
-        <strong>Code Review</strong>
-        <span>Module Two</span>
-      </div>
-
-      <div class="card">
-        <strong>Software Engineering & Design</strong>
-        <span>Artifact Enhancement</span>
-      </div>
-
-      <div class="card">
-        <strong>Algorithms & Data Structures</strong>
-        <span>Artifact Enhancement</span>
-      </div>
-
-      <div class="card">
-        <strong>Databases</strong>
-        <span>Artifact Enhancement</span>
-      </div>
-
-    </div>
-
-  </section>
-
-  <footer>
-    Matthew Biletnikoff | CS 499 Computer Science Capstone
-  </footer>
-
+  <header class="site-header"><nav class="nav wrap" aria-label="Main navigation"><a href="#top" class="brand">Matthew Biletnikoff<small>Computer Science · Research Engineering</small></a><div class="links"><a href="#work">Portfolio</a><a href="#approach">Research Interests</a><a href="https://github.com/MKoff84/CS499">GitHub Repository ↗</a></div></nav></header>
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title"><div class="hero-inner wrap"><div><p class="eyebrow">Computer Science ePortfolio / SNHU CS 499</p><h1 id="hero-title">Engineering intelligence<br>for the <em>unknown.</em></h1><p class="subtitle">Software engineering, artificial intelligence, and computational methods for complex systems. A capstone portfolio focused on robust architecture, algorithmic reasoning, and reproducible experimentation.</p><div class="actions"><a class="btn" href="#work">Explore Capstone Work ↓</a><a class="btn secondary" href="https://github.com/MKoff84/CS499">View Source Repository ↗</a></div></div><div class="orbital" aria-hidden="true"><div class="orbit"></div><div class="orbit"></div><div class="orbit"></div><div class="core"></div><div class="orbit-label">Model · Test · Validate</div></div></div></section>
+    <section id="work" class="content"><div class="wrap"><div class="section-head"><div><span class="kicker">Selected work / CS 499</span><h2>Capstone research & engineering</h2></div><p>One intelligent-agent project, progressively enhanced across three computer science disciplines. Each enhancement documents design decisions, validation, and technical learning.</p></div><div class="grid">
+      <article class="project"><div class="num">01 / SOFTWARE ENGINEERING</div><h3>Modular Intelligent Agent</h3><p>Refactoring a notebook-based deep Q-learning project into maintainable agent, environment, training, and testing components.</p><div class="foot">Enhancement One · Completed</div></article>
+      <article class="project"><div class="num">02 / ALGORITHMS</div><h3>A* & BFS Pathfinding</h3><p>Heuristic and uninformed search methods, data-structure trade-offs, and verified shortest-path comparisons.</p><div class="foot"><span class="status">Module Six publication in progress</span></div></article>
+      <article class="project"><div class="num">03 / DATABASES</div><h3>Experiment Persistence</h3><p>SQLite relational design, validated records, parameterized queries, and persistent DQN and pathfinding results.</p><div class="foot">Enhancement Three · Completed</div></article>
+      <article class="project wide"><div class="num">04 / CODE REVIEW</div><h3>Technical Review & Enhancement Plan</h3><p>Assessment of the original CS 370 artifact, its limitations, and the engineering decisions guiding the three enhancements. Video and supporting materials will be linked here when published.</p><div class="foot">Code review · Portfolio integration pending</div></article>
+      <article class="project"><div class="num">05 / PROFESSIONAL PROFILE</div><h3>Self-Assessment</h3><p>A synthesis of academic growth, engineering practice, communication, security, and professional direction.</p><div class="foot"><span class="status">Scheduled for Module Seven</span></div></article>
+    </div></div></section>
+    <section id="approach" class="content info"><div class="wrap info-grid"><div><span class="kicker">Research direction</span><h2>Where software meets physical systems</h2><p>My interests span machine learning, aerospace and autonomous systems, computational physics, and scientific simulation. I am particularly drawn to tools that help researchers model, test, and understand complex behavior.</p></div><div><span class="kicker">Technical focus</span><h2>Built on engineering fundamentals</h2><p>The capstone demonstrates a practical progression: improve the architecture, evaluate algorithms, and preserve experimental evidence. These principles support reliable software development as well as more ambitious research platforms.</p><div class="chips"><span class="chip">Python</span><span class="chip">Deep Q-Learning</span><span class="chip">A* / BFS</span><span class="chip">SQLite</span><span class="chip">Automated Testing</span><span class="chip">Simulation</span></div></div></div></section>
+  </main>
+  <footer><div class="wrap footer-inner"><span>© 2026 Matthew Biletnikoff · CS 499 Computer Science Capstone</span><span>Southern New Hampshire University</span></div></footer>
 </body>
 </html>
+
