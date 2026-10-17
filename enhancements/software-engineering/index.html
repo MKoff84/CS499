@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="CS 499 Software Design and Engineering enhancement: modular architecture, deep Q-learning, validation, and automated testing.">
+    <title>Software Design &amp; Engineering | Matthew Biletnikoff</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #07101c;
+            --panel: #0e1b2b;
+            --text: #e9f2fb;
+            --muted: #a4b6ca;
+            --line: #284058;
+            --cyan: #69d9ee
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 95px
+        }
+
+        .section {
+           scroll-margin-top: 110px;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font: 16px/1.7 Segoe UI, Arial, sans-serif
+        }
+
+        a {
+            color: var(--cyan)
+        }
+
+        .wrap {
+            max-width: 1050px;
+            width: 88%;
+            margin: auto
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            background: #07101cf2;
+            border-bottom: 1px solid var(--line);
+            z-index: 10
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 75px;
+            gap: 20px
+        }
+
+        .nav a {
+            text-decoration: none
+        }
+
+        .brand {
+            font-weight: 750;
+            color: white
+        }
+
+        .nav small {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+            letter-spacing: .14em;
+            text-transform: uppercase
+        }
+
+        .hero {
+            background: radial-gradient(ellipse at 85% 25%, #153955 0%, transparent 46%), linear-gradient(130deg, #091523, #0a1e31);
+            border-bottom: 1px solid var(--line);
+            padding: 92px 0 78px
+        }
+
+        .eyebrow,
+        .kicker {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: .18em;
+            color: var(--cyan);
+            font-weight: 750
+        }
+
+        h1 {
+            font-size: clamp(36px, 5vw, 64px);
+            line-height: 1.13;
+            letter-spacing: -.04em;
+            margin: 16px 0
+        }
+
+        h2 {
+            font-size: 27px;
+            margin: 0 0 15px
+        }
+
+        h3 {
+            margin: 0 0 10px
+        }
+
+        .lead {
+            font-size: 20px;
+            color: #c5d9e8;
+            max-width: 760px
+        }
+
+        .section {
+            padding: 58px 0;
+            border-bottom: 1px solid #1a3147
+        }
+
+        p {
+            color: #b9cadd
+        }
+
+        strong {
+            color: #e9f2fb
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px
+        }
+
+        .panel {
+            background: linear-gradient(145deg, #102238, #0c1929);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 24px
+        }
+
+        .metric {
+            font-size: 40px;
+            color: var(--cyan);
+            font-weight: 800;
+            line-height: 1.1
+        }
+
+        .sub {
+            font-size: 13px;
+            color: var(--muted)
+        }
+
+        .twocol {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px
+        }
+
+        .tablewrap {
+            overflow: auto
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 570px
+        }
+
+        th,
+        td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--line)
+        }
+
+        th {
+            color: var(--cyan)
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--cyan);
+            color: #061522;
+            text-decoration: none;
+            padding: 11px 17px;
+            border-radius: 5px;
+            font-weight: 700;
+            margin: 8px 8px 8px 0
+        }
+
+        .btn.outline {
+            background: transparent;
+            color: var(--cyan);
+            border: 1px solid var(--cyan)
+        }
+
+        ul {
+            color: #b9cadd;
+            padding-left: 24px
+        }
+
+        li {
+            margin: 8px 0
+        }
+
+        .note {
+            border-left: 3px solid var(--cyan);
+            padding: 12px 20px;
+            background: #102238;
+            color: #cbdbe8
+        }
+
+        .footer {
+            padding: 30px 0;
+            color: #8fa8bc
+        }
+
+        .small {
+            font-size: 14px;
+            color: var(--muted)
+        }
+
+        @media(max-width:720px) {
+
+            .grid,
+            .twocol {
+                grid-template-columns: 1fr
+            }
+
+            .nav {
+                flex-wrap: wrap;
+                padding: 15px 0
+            }
+
+            .hero {
+                padding: 65px 0
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="wrap nav"><a class="brand" href="../../index.html">Matthew Biletnikoff<small>Computer Science ·
+                    Research Engineering</small></a><a href="../../index.html#work">← Back to portfolio</a></nav>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="wrap">
+                <div class="eyebrow">CS 499 / Enhancement One / Software Design &amp; Engineering</div>
+                <h1>Engineering intelligence.<br>Building reliable foundations.</h1>
+                <p class="lead">
+                    Transforming a notebook-based deep Q-learning agent into a modular,
+                    testable Python application through separation of concerns,
+                    configuration validation, improved state management, and
+                    automated testing.
+                </p>
+                <a class="btn" href="#results">Explore the enhancement ↓</a>
+                <a class="btn outline" href="https://github.com/MKoff84/CS499">
+                    GitHub repository ↗
+                </a>
+            </div>
+        </section>
+        <section class="section">
+            <div class="wrap">
+                <div class="kicker">Project context</div>
+                <h2>From an academic AI prototype to a modular software application</h2>
+
+                <p>
+                    The Pirate Intelligent Agent originated in CS 370: Current/Emerging
+                    Trends in Computer Science. The original project used Python and
+                    TensorFlow/Keras to train a deep Q-learning agent to navigate an
+                    8-by-8 maze and locate treasure. My primary contribution focused
+                    on implementing the reinforcement-learning training process within
+                    a Jupyter Notebook supported by existing maze and experience
+                    management classes.
+                </p>
+
+                <p>
+                    For my first CS 499 enhancement, I redesigned the application
+                    around software engineering principles rather than changing the
+                    underlying learning algorithm. I separated configuration, maze
+                    behavior, replay memory, neural-network responsibilities, and
+                    training coordination into independent Python components.
+                    A standalone main.py entry point replaced the notebook-dependent
+                    execution workflow.
+                </p>
+
+                <p>
+                    The objective was to preserve the original navigation problem
+                    while improving maintainability, reliability, testability, and
+                    extensibility. This architecture also established the foundation
+                    for the subsequent Algorithms and Database enhancements.
+                </p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="wrap">
+                <div class="kicker">Engineering decisions</div>
+                <h2>Modular architecture, stronger validation, and reliable execution</h2>
+
+                <div class="twocol">
+                    <article class="panel">
+                        <h3>Separation of concerns</h3>
+                        <p>
+                            Refactored the notebook-based implementation into
+                            independent Python components for configuration,
+                            maze behavior, replay memory, neural-network
+                            operations, and training coordination.
+                        </p>
+                        <p>
+                            A standalone main.py entry point allows the
+                            application to execute without relying on a
+                            sequence of Jupyter Notebook cells.
+                        </p>
+                    </article>
+
+                    <article class="panel">
+                        <h3>Configuration and state management</h3>
+                        <p>
+                            Introduced a validated configuration dataclass,
+                            an Action enumeration, and bounded replay memory
+                            to make application behavior more predictable.
+                        </p>
+                        <p>
+                            Corrected an invalid-action state defect in the
+                            original maze logic and restricted agent action
+                            selection to currently valid movements.
+                        </p>
+                    </article>
+
+                    <article class="panel">
+                        <h3>Neural-network architecture</h3>
+                        <p>
+                            Encapsulated model creation, prediction, action
+                            selection, and target-network synchronization
+                            within the learning agent. Updated model
+                            construction to use an explicit keras.Input layer.
+                        </p>
+                    </article>
+
+                    <article class="panel">
+                        <h3>Automated testing and reliability</h3>
+                        <p>
+                            Developed ten unit tests covering configuration,
+                            environment behavior, invalid actions, replay
+                            memory, and neural-network validation.
+                            All ten tests passed.
+                        </p>
+                        <p>
+                            Added type hints, documentation, input validation,
+                            controlled exceptions, and reproducible random
+                            seeds to improve maintainability and reliability.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section class="section" id="results">
+            <div class="wrap">
+                <div class="kicker">Verified observations</div>
+                <h2>Software engineering validation</h2>
+
+                <div class="grid">
+                    <div class="panel">
+                        <div class="metric">10 / 10</div>
+                        <div>Unit tests passed</div>
+                        <div class="sub">Configuration, maze behavior, replay memory, and neural-network validation</div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="metric">15</div>
+                        <div>Training epochs completed</div>
+                        <div class="sub">Standalone execution using the original CS 370 maze</div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="metric">15</div>
+                        <div>Metric records generated</div>
+                        <div class="sub">Reward, loss, and epsilon histories recorded during training</div>
+                    </div>
+                </div>
+
+                <p>
+                    The refactored application completed a 15-epoch training run
+                    using the original 8-by-8 maze. The results demonstrate that
+                    the modular components integrate successfully; they do not
+                    establish that the learning algorithm achieved convergence
+                    or improved its win rate.
+                </p>
+
+                <p>
+                    The ten passing unit tests provide repeatable verification
+                    of important application behavior, including the corrected
+                    invalid-action state handling.
+                </p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="wrap">
+                <div class="kicker">Validation</div>
+                <h2>Testing the architecture, not just the algorithm</h2>
+
+                <p>
+                    The enhanced application was validated through ten automated
+                    unit tests using Python's unittest framework. These tests
+                    covered configuration validation, environment initialization,
+                    movement handling, invalid actions, maze values, bounded
+                    replay memory, and neural-network state and prediction behavior.
+                </p>
+
+                <p>
+                    A particularly important test verified that an invalid maze
+                    movement correctly updates the environment's state. This
+                    addresses a defect identified during the original code review
+                    and demonstrates how automated testing can protect behavior
+                    during architectural refactoring.
+                </p>
+
+                <p>
+                    Integration validation included a standalone 15-epoch training
+                    run using the original CS 370 maze. The application recorded
+                    reward, loss, and epsilon histories while demonstrating that
+                    the independently organized components function together.
+                </p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="wrap">
+                <div class="kicker">Enhancement narrative / reflection</div>
+                <h2>Why this artifact matters</h2>
+
+                <p>
+                    I selected the Pirate Intelligent Agent because it represents
+                    an important stage in my development in artificial intelligence.
+                    Revisiting the project allowed me to examine how my approach
+                    to software engineering has evolved from implementing an
+                    algorithm to designing a complete, maintainable application.
+                </p>
+
+                <p>
+                    The most significant challenge involved separating components
+                    that had originally been closely connected within the notebook.
+                    I had to establish clear responsibilities for configuration,
+                    environment behavior, replay memory, neural-network operations,
+                    and training coordination while preserving the original
+                    navigation requirements.
+                </p>
+
+                <p>
+                    During validation, I discovered that the maze initially used
+                    by the standalone application differed from the original
+                    CS 370 environment. I corrected the maze configuration and
+                    reran the application to ensure that architectural improvements
+                    did not unintentionally change the original problem.
+                </p>
+
+                <p>
+                    This enhancement reinforced an important engineering principle:
+                    a functioning algorithm is only one part of a reliable software
+                    system. Maintainability, testability, validation, and clear
+                    component boundaries determine whether that system can be
+                    understood, verified, and extended.
+                </p>
+            </div>
+        </section>      
+        <section class="section" id="source">
+            <div class="wrap">
+                <div class="kicker">Source code &amp; technical artifacts</div>
+                <h2>Explore the software architecture</h2>
+
+                <p>
+                    Compare the original CS 370 notebook-based intelligent agent
+                    with the refactored CS 499 Python application. The enhanced
+                    implementation separates configuration, environment behavior,
+                    neural-network operations, replay memory, and training into
+                    independently organized components.
+                </p>
+
+            <div class="twocol">
+                <article class="panel">
+                    <h3>Original CS 370 Artifact</h3>
+                    <p>
+                        The original deep Q-learning notebook and supporting
+                        maze and experience-management classes.
+                    </p>
+                    <a class="btn outline"
+                        href="https://github.com/MKoff84/CS499/tree/main/enhancements/algorithms/original"
+                        target="_blank" rel="noopener noreferrer">
+                        View original source ↗
+                    </a>
+                </article>
+
+                <article class="panel">
+                    <h3>Enhanced CS 499 Artifact</h3>
+                    <p>
+                        The modular Python application with separated
+                        responsibilities, validated configuration, bounded
+                        replay memory, and automated tests.
+                    </p>
+                    <a class="btn outline"
+                        href="https://github.com/MKoff84/CS499/tree/main/enhancements/algorithms/enhanced"
+                        target="_blank" rel="noopener noreferrer">
+                        View enhanced source ↗
+                    </a>
+                </article>
+            </div>
+
+            <h3 style="margin-top: 32px;">Implementation and Testing</h3>
+
+            <p>
+            The enhanced project includes a standalone application entry
+            point, dedicated agent and training modules, and repeatable
+            unit tests. These components demonstrate the architectural
+            improvements described in the Milestone Two narrative.
+            </p>
+
+            <a class="btn outline"
+                href="https://github.com/MKoff84/CS499/tree/main/enhancements/algorithms/enhanced"
+                target="_blank" rel="noopener noreferrer">
+                Explore Python Modules ↗
+            </a>
+
+            <a class="btn outline"
+                href="https://github.com/MKoff84/CS499/tree/main/enhancements/algorithms/enhanced/tests"
+                target="_blank" rel="noopener noreferrer">
+                View Automated Tests ↗
+            </a>
+
+            <h3 style="margin-top: 32px;">Enhancement Narrative</h3>
+
+            <p>
+                Read the complete Milestone Two narrative covering the
+                original artifact, software architecture, engineering
+                decisions, validation, course outcomes, and reflection.
+            </p>
+
+            <a class="btn outline" href="narrative.html">
+                Read Full Enhancement Narrative
+            </a>
+
+            <a class="btn outline"
+                href="CS499_Milestone_Two_Enhancement_One_Narrative_Biletnikoff.docx">
+                Download Word Narrative
+            </a>
+
+            <p class="small">
+                Enhancement One: Software Design and Engineering.
+                CS 499 Computer Science Capstone.
+            </p>
+        </div>
+    </section>
+    </main>
+    <footer class="footer">
+        <div class="wrap">© 2026 Matthew Biletnikoff · CS 499 Computer Science Capstone · Southern New Hampshire
+            University</div>
+    </footer>
+</body>
+
+</html>
