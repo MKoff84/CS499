@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="CS 499 Database Enhancement: SQLite relational database design, persistent AI experiment storage, parameterized SQL, data integrity, and automated testing.">
+    <title>Database Enhancement | Matthew Biletnikoff</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #07101c;
+            --panel: #0e1b2b;
+            --text: #e9f2fb;
+            --muted: #a4b6ca;
+            --line: #284058;
+            --cyan: #69d9ee
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 95px
+        }
+
+        .section {
+           scroll-margin-top: 110px;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font: 16px/1.7 Segoe UI, Arial, sans-serif
+        }
+
+        a {
+            color: var(--cyan)
+        }
+
+        .wrap {
+            max-width: 1050px;
+            width: 88%;
+            margin: auto
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            background: #07101cf2;
+            border-bottom: 1px solid var(--line);
+            z-index: 10
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 75px;
+            gap: 20px
+        }
+
+        .nav a {
+            text-decoration: none
+        }
+
+        .brand {
+            font-weight: 750;
+            color: white
+        }
+
+        .nav small {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+            letter-spacing: .14em;
+            text-transform: uppercase
+        }
+
+        .hero {
+            background: radial-gradient(ellipse at 85% 25%, #153955 0%, transparent 46%), linear-gradient(130deg, #091523, #0a1e31);
+            border-bottom: 1px solid var(--line);
+            padding: 92px 0 78px
+        }
+
+        .eyebrow,
+        .kicker {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: .18em;
+            color: var(--cyan);
+            font-weight: 750
+        }
+
+        h1 {
+            font-size: clamp(36px, 5vw, 64px);
+            line-height: 1.13;
+            letter-spacing: -.04em;
+            margin: 16px 0
+        }
+
+        h2 {
+            font-size: 27px;
+            margin: 0 0 15px
+        }
+
+        h3 {
+            margin: 0 0 10px
+        }
+
+        .lead {
+            font-size: 20px;
+            color: #c5d9e8;
+            max-width: 760px
+        }
+
+        .section {
+            padding: 58px 0;
+            border-bottom: 1px solid #1a3147
+        }
+
+        p {
+            color: #b9cadd
+        }
+
+        strong {
+            color: #e9f2fb
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px
+        }
+
+        .panel {
+            background: linear-gradient(145deg, #102238, #0c1929);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 24px
+        }
+
+        .metric {
+            font-size: 40px;
+            color: var(--cyan);
+            font-weight: 800;
+            line-height: 1.1
+        }
+
+        .sub {
+            font-size: 13px;
+            color: var(--muted)
+        }
+
+        .twocol {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px
+        }
+
+        .tablewrap {
+            overflow: auto
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 570px
+        }
+
+        th,
+        td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--line)
+        }
+
+        th {
+            color: var(--cyan)
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--cyan);
+            color: #061522;
+            text-decoration: none;
+            padding: 11px 17px;
+            border-radius: 5px;
+            font-weight: 700;
+            margin: 8px 8px 8px 0
+        }
+
+        .btn.outline {
+            background: transparent;
+            color: var(--cyan);
+            border: 1px solid var(--cyan)
+        }
+
+        ul {
+            color: #b9cadd;
+            padding-left: 24px
+        }
+
+        li {
+            margin: 8px 0
+        }
+
+        .note {
+            border-left: 3px solid var(--cyan);
+            padding: 12px 20px;
+            background: #102238;
+            color: #cbdbe8
+        }
+
+        .footer {
+            padding: 30px 0;
+            color: #8fa8bc
+        }
+
+        .small {
+            font-size: 14px;
+            color: var(--muted)
+        }
+
+        @media(max-width:720px) {
+
+            .grid,
+            .twocol {
+                grid-template-columns: 1fr
+            }
+
+            .nav {
+                flex-wrap: wrap;
+                padding: 15px 0
+            }
+
+            .hero {
+                padding: 65px 0
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="wrap nav"><a class="brand" href="../../index.html">Matthew Biletnikoff<small>Computer Science ·
+                    Research Engineering</small></a><a href="../../index.html#work">← Back to portfolio</a></nav>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="wrap">
+                <div class="eyebrow">
+                    CS 499 / Enhancement Three / Databases
+                </div>
+
+                <h1>
+                    Engineering intelligence.<br>
+                    Preserving experimental knowledge.
+                </h1>
+
+                <p class="lead">
+                    Extending the Pirate Intelligent Agent with a SQLite
+                    relational database to persist reinforcement-learning
+                    experiments, record algorithm performance, enforce
+                    data integrity, and support reproducible analysis.
+                </p>
+
+                <a class="btn" href="#results">
+                    Explore database results ↓
+                </a>
+
+                <a class="btn outline"
+                    href="https://github.com/MKoff84/CS499">
+                    GitHub repository ↗
+                </a>
+            </div>
+        </section>
+        <section class="section">
+            <div class="wrap">
+                <div class="kicker">Project context</div>
+
+                <h2>From intelligent navigation to persistent experiment data</h2>
+
+                <p>
+                    The Pirate Intelligent Agent originated in CS 370 as a
+                    Python-based deep Q-learning application designed to
+                    navigate an 8-by-8 maze. The first CS 499 enhancement
+                    reorganized the application into modular components,
+                    while the second introduced A* and breadth-first search
+                    for deterministic pathfinding comparisons.
+                </p>
+
+                <p>
+                    For Enhancement Three, I extended the application with
+                    a SQLite relational database that preserves experiment
+                    results beyond an individual program execution.
+                    Rather than relying exclusively on temporary output,
+                    the application can store training runs and algorithm
+                    results for later retrieval and comparison.
+                </p>
+
+                <p>
+                    The database uses two related tables:
+                    <strong>experiment_runs</strong> and
+                    <strong>algorithm_results</strong>.
+                    Primary and foreign keys establish relationships,
+                    while constraints, parameterized SQL statements,
+                    and transaction management support data integrity
+                    and reliable database operations.
+                </p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="wrap">
+                <div class="kicker">Engineering decisions</div>
+                <h2>Relational architecture, data integrity, and secure operations</h2>
+
+                <div class="twocol">
+                    <article class="panel">
+                        <h3>Relational database design</h3>
+                        <p>
+                            Designed a SQLite database using two related tables:
+                            <strong>experiment_runs</strong> and
+                            <strong>algorithm_results</strong>.
+                            Primary and foreign keys connect experiment records
+                            with their associated algorithm results, reducing
+                            unnecessary duplication and supporting structured queries.
+                        </p>
+                    </article>
+
+                    <article class="panel">
+                        <h3>Data integrity and security</h3>
+                        <p>
+                            Implemented database constraints, foreign-key
+                            relationships, and parameterized SQL statements.
+                            These measures help prevent invalid records,
+                            protect query execution from SQL injection,
+                            and maintain consistency between related data.
+                        </p>
+                    </article>
+
+                    <article class="panel">
+                        <h3>Persistent experiment storage</h3>
+                        <p>
+                            Extended the application to save deep Q-learning
+                            experiment information and A*/BFS algorithm results.
+                            Stored records can be retrieved after execution,
+                            supporting repeatable comparisons and future analysis.
+                        </p>
+                    </article>
+
+                    <article class="panel">
+                        <h3>Transaction and connection management</h3>
+                        <p>
+                            Used managed SQLite connections and transactions
+                            to support reliable database operations.
+                            Added indexes to improve access to relevant records
+                            and automated tests to verify persistence,
+                            relationships, and expected database behavior.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section class="section" id="results">
+            <div class="wrap">
+                <div class="kicker">Verified observations</div>
+                <h2>Database implementation and validation</h2>
+
+                <div class="grid">
+                    <div class="panel">
+                        <div class="metric">2</div>
+                        <div>Related SQLite tables</div>
+                        <div class="sub">
+                            experiment_runs and algorithm_results
+                        </div>
+                </div>
+
+                <div class="panel">
+                        <div class="metric">26 / 26</div>
+                        <div>Automated tests passed</div>
+                        <div class="sub">
+                            Full application and database test suite
+                        </div>
+                </div>
+
+                <div class="panel">
+                        <div class="metric">6</div>
+                        <div>Database-specific tests</div>
+                        <div class="sub">
+                            Persistence, relationships, and database operations
+                        </div>
+                    </div>
+                </div>
+
+                <p>
+                    The completed enhancement successfully persisted experiment
+                    information from the deep Q-learning agent and the A*/BFS
+                    pathfinding implementations. The database supports retrieving
+                    stored results across separate application executions.
+                </p>
+
+                <p>
+                    Validation included database-specific tests alongside the
+                    existing software engineering and algorithm tests. All
+                    26 automated tests passed, providing evidence that the
+                    database integration preserved existing functionality.
+                </p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="wrap">
+                <div class="kicker">Validation</div>
+                <h2>Verifying persistence, integrity, and reliability</h2>
+
+                    <p>
+                        The completed database enhancement was validated using
+                        Python's unittest framework. The final application passed
+                        26 automated tests, including six database-specific tests.
+                        These tests complemented the existing software engineering
+                        and pathfinding tests.
+                    </p>
+
+                    <p>
+                        Database validation focused on creating and retrieving
+                        experiment records, preserving relationships between
+                        experiment runs and algorithm results, and confirming
+                        that stored information remained available after
+                        database connections were closed and reopened.
+                    </p>
+
+                    <p>
+                        Parameterized SQL statements were used to separate
+                        user-supplied values from SQL commands. Foreign-key
+                        constraints and managed transactions provided additional
+                        safeguards for maintaining consistent records.
+                    </p>
+
+                    <p>
+                        During testing, I also addressed a temporary SQLite
+                        connection-management issue on Windows. Correcting
+                        connection cleanup allowed the tests to complete
+                        without leaving temporary database files locked.
+                    </p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="wrap">
+                <div class="kicker">Enhancement narrative / reflection</div>
+                <h2>Turning experiment results into reusable knowledge</h2>
+
+                <p>
+                    I selected the Pirate Intelligent Agent for my third
+                    enhancement because it provided an opportunity to
+                    connect artificial intelligence development with
+                    practical database engineering. The original application
+                    demonstrated reinforcement learning, but it did not
+                    provide a structured relational system for preserving
+                    and comparing experimental results.
+                </p>
+
+                <p>
+                    By implementing SQLite persistence, I expanded the
+                    project beyond individual training sessions. Experiment
+                    records and algorithm results can now be stored,
+                    retrieved, and analyzed without depending exclusively
+                    on temporary console output or in-memory data.
+                </p>
+
+                <p>
+                    The enhancement strengthened my understanding of
+                    relational schema design, primary and foreign keys,
+                    SQL parameterization, transactions, indexing, and
+                    automated database testing. These capabilities are
+                    especially relevant to research applications where
+                    experimental results must remain accessible and
+                    traceable over time.
+                </p>
+
+                <p>
+                    One challenge involved managing SQLite connections
+                    during automated testing on Windows. Resolving the
+                    connection cleanup issue reinforced the importance
+                    of resource management and testing under realistic
+                    execution conditions.
+                </p>
+
+                <p>
+                    This enhancement demonstrates my progress toward
+                    the computer science program outcomes involving
+                    computing solutions, technical tools, secure data
+                    management, and professional engineering practices.
+                    Together, the three enhancements illustrate how
+                    software architecture, algorithms, and databases
+                    contribute to a more complete computing system.
+                </p>
+            </div>
+        </section>
+        <section class="section" id="source">
+            <div class="wrap">
+                <div class="kicker">Source code &amp; technical artifacts</div>
+                <h2>Explore the database implementation</h2>
+
+                <p>
+                    Enhancement Three extends the original CS 370 Pirate
+                    Intelligent Agent with persistent SQLite storage for
+                    reinforcement-learning experiments and pathfinding results.
+                    The implementation includes relational tables, data
+                    integrity controls, parameterized queries, and automated tests.
+                </p>
+
+            <div class="twocol">
+                <article class="panel">
+                    <h3>Original CS 370 Artifact</h3>
+                    <p>
+                        The original deep Q-learning notebook and its
+                        supporting maze and experience-management classes.
+                    </p>
+
+                    <a class="btn outline"
+                        href="https://github.com/MKoff84/CS499/tree/main/enhancements/databases/original"
+                        target="_blank" rel="noopener noreferrer">
+                        View original source ↗
+                    </a>
+                </article>
+
+                <article class="panel">
+                    <h3>Enhanced CS 499 Artifact</h3>
+                    <p>
+                        The completed Python application with SQLite
+                        experiment persistence, A*/BFS pathfinding,
+                        and automated validation.
+                    </p>
+
+                    <a class="btn outline"
+                        href="https://github.com/MKoff84/CS499/tree/main/enhancements/databases/enhanced"
+                        target="_blank" rel="noopener noreferrer">
+                        View enhanced source ↗
+                    </a>
+                </article>
+            </div>
+
+            <h3 style="margin-top: 32px;">Database Enhancement Narrative</h3>
+
+            <p>
+                Read the complete Milestone Four narrative covering
+                database design, implementation decisions, security,
+                testing, course outcomes, and reflection.
+            </p>
+
+            <a class="btn outline" href="narrative.html">
+                Read Full Enhancement Narrative
+            </a>
+
+            <p class="small">
+                Enhancement Three: Databases.
+                CS 499 Computer Science Capstone.
+            </p>
+        </div>
+    </section>
+    </main>
+    <footer class="footer">
+        <div class="wrap">© 2026 Matthew Biletnikoff · CS 499 Computer Science Capstone · Southern New Hampshire
+            University</div>
+    </footer>
+</body>
+
+</html>
